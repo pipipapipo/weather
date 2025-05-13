@@ -2,14 +2,12 @@ import requests
 from twilio.rest import Client
 
 # Twilio credentials (from Twilio Console)
-account_sid = 'ACfc2021d3176e7c83054f57aebdf0304e'
-auth_token = 'fe0f6b812f6c54dfbdc5a4799a1a1959'
-from_whatsapp_number = 'whatsapp:+19787552334'  # Twilio sandbox number
+account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+from_whatsapp_number = os.environ.get("TWILIO_FROM_NUMBER")  # Twilio sandbox number
 
 # List of recipient WhatsApp numbers (must have joined sandbox)
-recipients = [
-    'whatsapp:+6581007753',  # your number
-    'whatsapp:+65yyyyyyyy',  # another user
+recipients = os.environ.get("RECIPIENTS", "") # your numberer
     # Add more as needed
 ]
 
@@ -39,7 +37,7 @@ def send_weather_updates():
             from_=from_whatsapp_number,
             to=recipient
         )
-        print(f"Sent to {recipient}: {message.sid}")
+print(f"✅ Sent weather update to {recipient.strip()}: SID {message.sid}")
 
 # Run it
 if __name__ == "__main__":
