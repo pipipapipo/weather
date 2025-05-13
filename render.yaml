@@ -1,0 +1,7 @@
+services:
+  - type: cron
+    name: weather-bot
+    schedule: "0 10 * * *"  # Every day at 10 AM UTC (adjust as needed)
+    env: python
+    buildCommand: ""
+    startCommand: python weatherbot.py
